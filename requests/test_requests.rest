@@ -2,7 +2,7 @@ GET http://localhost:3001/api/persons
 
 
 ###
-GET http://localhost:3001/api/persons/6
+GET http://localhost:3001/api/persons/38
 
 ###
 DELETE http://localhost:3001/api/persons/5
@@ -33,4 +33,21 @@ Content-Type: application/json
   "name": "Missing fields"
 }
 
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Change Me",
+  "number": 27
+}
+
+###
+PUT http://localhost:3001/api/persons/38
+Content-Type: application/json
+
+{
+  "name": "Change Me",
+  "number": "7"
+}
 

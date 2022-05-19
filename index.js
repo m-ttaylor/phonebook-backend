@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 app.use(express.json())
+app.use(express.static('build'))
 app.use(cors())
 
 morgan.token('body', function (req, res) {
@@ -84,7 +85,7 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 const generateId = () => {
-  return (Math.random() * 200).toFixed(0)
+  return Number((Math.random() * 200).toFixed(0))
 }
 app.post('/api/persons', (request, response) => {
   const body = request.body
@@ -113,6 +114,33 @@ app.post('/api/persons', (request, response) => {
     id: generateId()
   }
 
+  persons = persons.concat(person)
+  response.json(person)
+})
+
+app.put('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const body = request.body
+
+  if (!body.name) {
+    return response.status(400).json({
+      error: 'name must be included'
+    })
+  }
+
+  if (!body.number) {
+    return response.status(400).json({
+      error: 'number must be included'
+    })
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id
+  }
+  
+  persons = persons.filter(p => p.id !== id)
   persons = persons.concat(person)
   response.json(person)
 })
