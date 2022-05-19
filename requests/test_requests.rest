@@ -1,0 +1,36 @@
+GET http://localhost:3001/api/persons
+
+
+###
+GET http://localhost:3001/api/persons/6
+
+###
+DELETE http://localhost:3001/api/persons/5
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Jimmy Dean",
+  "number": "12312412321"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Duplicate User",
+  "number": "12312412321"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Missing fields"
+}
+
+
