@@ -1,11 +1,13 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
+const Person = require('./models/person')
 const morgan = require('morgan')
-const cors = require('cors')
+// const cors = require('cors')
 
 app.use(express.json())
 app.use(express.static('build'))
-app.use(cors())
+// app.use(cors())
 
 morgan.token('body', function (req, res) {
   return JSON.stringify(req.body)
@@ -68,7 +70,9 @@ app.get('/info', (requests, response) => {
   ${new Date()}`)
 })
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+  Person.find({}).then(persons => {
+    response.json(persons)
+  })
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -96,26 +100,21 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
-  if (persons.find(p => p.name===body.name)) {
-    return response.status(400).json({
-      error: 'name must be unique'
-    })
-  }
-
   if (!body.number) {
     return response.status(400).json({
       error: 'number must be included'
     })
   }
 
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: generateId()
-  }
+  })
 
-  persons = persons.concat(person)
-  response.json(person)
+  console.log('Just adding a duplicate person, editing has not been implemented yet')
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
 })
 
 app.put('/api/persons/:id', (request, response) => {
@@ -134,15 +133,14 @@ app.put('/api/persons/:id', (request, response) => {
     })
   }
 
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id
-  }
+  })
   
-  persons = persons.filter(p => p.id !== id)
-  persons = persons.concat(person)
-  response.json(person)
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
