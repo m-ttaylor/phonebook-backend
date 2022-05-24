@@ -98,9 +98,16 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number,
   })
 
-  person.save().then(savedPerson => {
-    response.json(savedPerson)
-  }).catch(error => next(error))
+  Person.findOne({name: body.name})
+    .then(p => {
+      if (p) {
+        response.status(400).send({error: "cannot add duplicate person"}).end()
+      } else {
+        person.save().then(savedPerson => {
+          response.json(savedPerson)
+        }).catch(error => next(error))
+      }
+    })
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
