@@ -12,10 +12,72 @@ POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
 {
-  "name": "Jimmy Dean",
-  "number": "12312412321"
+  "name": "Good Number1",
+  "number": "12-12345678"
 }
 
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Good Number2",
+  "number": "12-123456"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Good Number3",
+  "number": "123-123456"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Good Number4",
+  "number": "12345678"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Bad Number1",
+  "number": "1234567"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Bad Number2",
+  "number": "1-2345678"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Bad Number3",
+  "number": "1234-5678"
+}
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Bad Number3",
+  "number": "--------1"
+}
 ###
 POST http://localhost:3001/api/persons/
 Content-Type: application/json
